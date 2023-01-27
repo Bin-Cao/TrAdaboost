@@ -6,6 +6,7 @@ Transfer learning allows leveraging the knowledge of source domains, available a
 + TrAdaBoost
 + MultiSourceTrAdaBoost
 + TaskTrAdaBoost
+
 Written using Python, which is suitable for operating systems, e.g., Windows/Linux/MAC OS etc.
 
 ## Note
