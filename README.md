@@ -2,6 +2,22 @@
 
 Transfer learning allows leveraging the knowledge of source domains, available a priori, to help training a classi- fier for a target domain, where the available data is scarce.
 
+## Models
++ TrAdaBoost
++ MultiSourceTrAdaBoost
++ TaskTrAdaBoost
+Written using Python, which is suitable for operating systems, e.g., Windows/Linux/MAC OS etc.
+
+## Note
+``` javascript
+author_email='bcao@shu.edu.com'
+maintainer='CaoBin'
+maintainer_email='bcao@shu.edu.cn' 
+license='MIT License'
+url='https://github.com/Bin-Cao/TrAdaboost'
+python_requires='>=3.7'
+```
+
 References
 
 .. [1] Dai, W., Yang, Q., et al. (2007). 
@@ -13,23 +29,6 @@ Boosting for transfer learning with multiple sources. IEEE.
 DOI: 10.1109/CVPR.2010.5539857
 
 .. [3] GitHub: https://github.com/chenchiwei/tradaboost/blob/master/TrAdaboost.py
-
-Written using Python, which is suitable for operating systems, e.g., Windows/Linux/MAC OS etc.
-
-## Models
-+ TrAdaBoost
-+ MultiSourceTrAdaBoost
-+ TaskTrAdaBoost
-
-## Note
-``` javascript
-author_email='bcao@shu.edu.com'
-maintainer='CaoBin'
-maintainer_email='bcao@shu.edu.cn' 
-license='MIT License'
-url='https://github.com/Bin-Cao/TrAdaboost'
-python_requires='>=3.7'
-```
 
 ## About
 Maintained by Bin Cao. Please feel free to open issues in the Github or contact Bin Cao
