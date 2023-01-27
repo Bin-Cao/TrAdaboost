@@ -27,7 +27,7 @@ author_email='bcao@shu.edu.com'
 maintainer='CaoBin'
 maintainer_email='bcao@shu.edu.cn' 
 license='MIT License'
-url='https://github.com/Bin-Cao/Bgolearn'
+url='https://github.com/Bin-Cao/TrAdaboost'
 python_requires='>=3.7'
 ```
 
