@@ -3,6 +3,7 @@
 Transfer learning allows leveraging the knowledge of source domains, available a priori, to help training a classi- fier for a target domain, where the available data is scarce.
 
 References
+
 .. [1] Dai, W., Yang, Q., et al. (2007). 
 Boosting for Transfer Learning.(2007), 193--200. 
 In Proceedings of the 24th international conference on Machine learning.
