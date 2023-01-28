@@ -4,8 +4,8 @@ Transfer learning allows leveraging the knowledge of source domains, available a
 
 ## Models
 + [TrAdaBoost](https://github.com/Bin-Cao/TrAdaboost/blob/main/TrAdaBoost/TrAdaBoost.py)
-+ MultiSourceTrAdaBoost
-+ TaskTrAdaBoost
++ [MultiSourceTrAdaBoost](https://github.com/Bin-Cao/TrAdaboost/blob/main/MultiSourceTrAdaBoost/MultiSourceTrAdaBoost.py)
++ [TaskTrAdaBoost](https://github.com/Bin-Cao/TrAdaboost/blob/main/TaskTrAdaBoost/TaskTrAdaBoost.py)
 
 Written using Python, which is suitable for operating systems, e.g., Windows/Linux/MAC OS etc.
 
