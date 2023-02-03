@@ -36,7 +36,18 @@ In Proceedings of the 24th international conference on Machine learning.
 Boosting for transfer learning with multiple sources. IEEE.
 DOI: 10.1109/CVPR.2010.5539857
 
-.. [3] GitHub: https://github.com/chenchiwei/tradaboost/blob/master/TrAdaboost.py
+.. [3] Rettinger, A., Zinkevich, M., & Bowling, M. (2006, July). 
+Boosting expert ensembles for rapid concept recall. 
+In Proceedings of the National Conference on Artificial Intelligence 
+(Vol. 21, No. 1, p. 464). 
+Menlo Park, CA; Cambridge, MA; London; AAAI Press; MIT Press; 1999.
+    
+.. [4] Pardoe, D., & Stone, P. (2010, June). 
+Boosting for regression transfer. 
+In Proceedings of the 27th International Conference 
+on International Conference on Machine Learning (pp. 863-870).
+
+.. [5] GitHub: https://github.com/chenchiwei/tradaboost/blob/master/TrAdaboost.py
 
 ## About
 Maintained by Bin Cao. Please feel free to open issues in the Github or contact Bin Cao
