@@ -88,7 +88,7 @@ def MultiSourceTrAdaBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, 
         for i in range(len(Multi_trans_A)-1):
             p = i + 1
             trans_A = np.concatenate((trans_A, list(Multi_trans_A.values())[p]), axis=0)
-    # prepare label_S
+    # prepare label_A
     label_A = list(Multi_label_A.values())[0]
     if len(Multi_label_A) == 1:
         pass 
