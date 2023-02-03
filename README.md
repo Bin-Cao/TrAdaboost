@@ -4,9 +4,9 @@ Transfer learning allows leveraging the knowledge of source domains, available a
 
 ## Models
 (1) classification
-+ [TrAdaBoost](https://github.com/Bin-Cao/TrAdaboost/blob/main/TrAdaBoost/TrAdaBoost.py)
-+ [MultiSourceTrAdaBoost](https://github.com/Bin-Cao/TrAdaboost/blob/main/MultiSourceTrAdaBoost/MultiSourceTrAdaBoost.py)
-+ [TaskTrAdaBoost](https://github.com/Bin-Cao/TrAdaboost/blob/main/TaskTrAdaBoost/TaskTrAdaBoost.py)
++ [TrAdaBoost](https://github.com/Bin-Cao/TrAdaboost/blob/main/TrAdaBoost)
++ [MultiSourceTrAdaBoost](https://github.com/Bin-Cao/TrAdaboost/blob/main/MultiSourceTrAdaBoost)
++ [TaskTrAdaBoost](https://github.com/Bin-Cao/TrAdaboost/blob/main/TaskTrAdaBoost)
 + [ExpBoost](https://github.com/Bin-Cao/TrAdaboost/tree/main/ExpBoost)
 
 
