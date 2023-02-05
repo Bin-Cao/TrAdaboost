@@ -69,7 +69,7 @@ label_S = tarin_data.iloc[:, -1]
 test = test_data.iloc[:,:-1]
 N = 20
 
-ExpBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N,)
+ExpBoost_R(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N,)
 
 References
 ----------
