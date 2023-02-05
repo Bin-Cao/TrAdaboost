@@ -8,7 +8,7 @@ Transfer learning allows leveraging the knowledge of source domains, available a
 + [MultiSourceTrAdaBoost](https://github.com/Bin-Cao/TrAdaboost/blob/main/MultiSourceTrAdaBoost)
 + [TaskTrAdaBoost](https://github.com/Bin-Cao/TrAdaboost/blob/main/TaskTrAdaBoost)
 + [ExpBoost](https://github.com/Bin-Cao/TrAdaboost/tree/main/ExpBoost)
-+ [ExpBoost_R](https://github.com/Bin-Cao/TrAdaboost/tree/main/ExpBoost_R)
++ [Improved ExpBoost](https://github.com/Bin-Cao/TrAdaboost/tree/main/Improved%20ExpBoost)
 
 
 (2) Regression
