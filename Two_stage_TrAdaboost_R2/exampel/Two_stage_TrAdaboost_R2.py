@@ -148,7 +148,6 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
         for j in range(row_A):
             weight[j] = weight[j] * np.exp(-bata_T[i] * np.abs(trans_response[j] - pre_res[j]))
         weight[0:row_A] =  weight[0:row_A] * (1-total_w_S) / weight[0:row_A].sum()
-
     model_error = np.array(model_error)
     min_index = np.random.choice(np.flatnonzero(model_error == model_error.min()))
     print('Two_stage_TrAdaboost_R2 is done')

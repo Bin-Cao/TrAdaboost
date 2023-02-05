@@ -99,7 +99,7 @@ def Transfer_Stacking(trans_S, Multi_trans_A, response_S, Multi_response_A, test
     for j in range(len(weak_classifiers_set)):
         LOOCV_LS_matrix[:,j] = weak_classifiers_set[j].predict(X)
     
-    # find the linear combination of hypotheses that minimizes squared error.
+    # find the linear combination of hypotheses that minimizes squared error
     reg = LinearRegression().fit(LOOCV_LS_matrix, Y)
     print('The linear combination of hypotheses is founded:')
     print('coef:', reg.coef_ ,'|| intercept :', reg.intercept_)
