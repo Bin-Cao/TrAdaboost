@@ -1,6 +1,5 @@
 # coding: UTF-8
 import numpy as np
-import copy
 from sklearn import tree
 
 # =============================================================================
@@ -9,7 +8,7 @@ from sklearn import tree
 
 
 def ExpBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N):
-    """Boosting for MultiSource Transfer Learning.
+    """Boosting Expert Ensembles for Rapid Concept Recall.
 
     Please feel free to open issues in the Github : https://github.com/Bin-Cao/TrAdaboost
     or 
@@ -46,12 +45,9 @@ def ExpBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N):
 
     N : int, default=20
     the number of weak estimators
-    
-    gamma : float, for avoiding overfitting 
 
     Examples
     --------
-    import pandas as pd
     # same-distribution training data
     tarin_data = pd.read_csv('M_Sdata.csv')
     # two diff-distribution training data
@@ -73,13 +69,15 @@ def ExpBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N):
     test = test_data.iloc[:,:-1]
     N = 20
 
-    TaskTrAdaBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N, gamma,)
+    ExpBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N,)
 
     References
     ----------
-    .. [1] Yao, Y., & Doretto, G. (2010, June)
-    Boosting for transfer learning with multiple sources. IEEE.
-    DOI: 10.1109/CVPR.2010.5539857
+    .. [1] Rettinger, A., Zinkevich, M., & Bowling, M. (2006, July). 
+    Boosting expert ensembles for rapid concept recall. 
+    In Proceedings of the National Conference on Artificial Intelligence 
+    (Vol. 21, No. 1, p. 464). 
+    Menlo Park, CA; Cambridge, MA; London; AAAI Press; MIT Press; 1999.
 
     """
     # generate a pool of experts according the diff-dis datasets
@@ -90,24 +88,10 @@ def ExpBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N):
 
         trans_A = np.asarray(trans_A, order='C')
         label_A = np.asarray(label_A, order='C')
-    
-        # initial weight
-        row_A = trans_A.shape[0]
-        weights_A = np.ones([row_A, 1]) / row_A
 
-        for j in range(N):
-            weights_A = calculate_ratio_weight(weights_A)
-            clf = tree.DecisionTreeClassifier(criterion="gini", max_depth = 2,max_features="log2", splitter="random",random_state=0)
-            weak_classifier = clf.fit(trans_A, label_A, sample_weight = weights_A[:, 0])
-            pre = weak_classifier.predict(trans_A)
-            error_rate = calculate_error_rate(label_A, pre, weights_A)
-            alpha = 0.5 * np.log((1-error_rate)/(error_rate+1e-10))
-            if error_rate < 0.5:
-                weak_classifiers_set.append(weak_classifier)
-            else:
-                pass
-            for j in range(row_A):
-                weights_A[j] = weights_A[j] * np.exp(- alpha *  pre[j] * label_A[j])
+        clf = tree.DecisionTreeClassifier(criterion="gini", max_depth = 2,max_features="log2", splitter="random",random_state=0)
+        weak_classifier = clf.fit(trans_A, label_A,)
+        weak_classifiers_set.append(weak_classifier)
     print('A pool of experts is initilized and contains {} classifier'.format(len(weak_classifiers_set)))
     print('='*60)
     

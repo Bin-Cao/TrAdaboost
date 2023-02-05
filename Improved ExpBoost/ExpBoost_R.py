@@ -7,8 +7,8 @@ from sklearn import tree
 # =============================================================================
 
 
-def ExpBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N):
-    """Boosting Expert Ensembles for Rapid Concept Recall.
+def ExpBoost_R(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N):
+    """Boosting Expert Ensembles for Rapid Concept Recall. (improved ExpBoost )
 
     Please feel free to open issues in the Github : https://github.com/Bin-Cao/TrAdaboost
     or 
@@ -69,7 +69,7 @@ def ExpBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N):
     test = test_data.iloc[:,:-1]
     N = 20
 
-    ExpBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N,)
+    ExpBoost_R(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N,)
 
     References
     ----------
@@ -88,10 +88,24 @@ def ExpBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N):
 
         trans_A = np.asarray(trans_A, order='C')
         label_A = np.asarray(label_A, order='C')
+    
+        # initial weight
+        row_A = trans_A.shape[0]
+        weights_A = np.ones([row_A, 1]) / row_A
 
-        clf = tree.DecisionTreeClassifier(criterion="gini", max_depth = 2,max_features="log2", splitter="random",random_state=0)
-        weak_classifier = clf.fit(trans_A, label_A,)
-        weak_classifiers_set.append(weak_classifier)
+        for j in range(N):
+            weights_A = calculate_ratio_weight(weights_A)
+            clf = tree.DecisionTreeClassifier(criterion="gini", max_depth = 2,max_features="log2", splitter="random",random_state=0)
+            weak_classifier = clf.fit(trans_A, label_A, sample_weight = weights_A[:, 0])
+            pre = weak_classifier.predict(trans_A)
+            error_rate = calculate_error_rate(label_A, pre, weights_A)
+            alpha = 0.5 * np.log((1-error_rate)/(error_rate+1e-10))
+            if error_rate < 0.5:
+                weak_classifiers_set.append(weak_classifier)
+            else:
+                pass
+            for j in range(row_A):
+                weights_A[j] = weights_A[j] * np.exp(- alpha *  pre[j] * label_A[j])
     print('A pool of experts is initilized and contains {} classifier'.format(len(weak_classifiers_set)))
     print('='*60)
     

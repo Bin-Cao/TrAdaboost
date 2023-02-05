@@ -1,5 +1,5 @@
 # coding: UTF-8
-import ExpBoost as ExpB
+import ExpBoost_R as ExpB
 import pandas as pd
 
 # same-distribution training data
@@ -23,4 +23,4 @@ label_S = tarin_data.iloc[:, -1]
 test = test_data.iloc[:,:-1]
 N = 2
 
-ExpB.ExpBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N, )
+ExpB.ExpBoost_R(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N, )

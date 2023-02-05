@@ -14,6 +14,6 @@ trans_A = A_tarin_data.iloc[:,:-1]
 label_S = tarin_data.iloc[:, -1]
 label_A = A_tarin_data.iloc[:,-1]
 test = test_data.iloc[:,:-1]
-N = 10
+N = 4
 
 TB.TrAdaBoost(trans_S, trans_A, label_S, label_A, test, N)

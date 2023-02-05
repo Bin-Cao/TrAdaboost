@@ -21,7 +21,7 @@ Multi_label_A = {
 trans_S = tarin_data.iloc[:,:-1]
 label_S = tarin_data.iloc[:, -1]
 test = test_data.iloc[:,:-1]
-N = 20
+N = 5
 gamma = 0.1
 
 TTB.TaskTrAdaBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N, gamma,)
