@@ -148,7 +148,24 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
         for j in range(row_A):
             weight[j] = weight[j] * np.exp(-bata_T[i] * np.abs(trans_response[j] - pre_res[j]))
         weight[0:row_A] =  weight[0:row_A] * (1-total_w_S) / weight[0:row_A].sum()
-
+        """
+        # binary_search strategy
+        def binary_search(list,item):
+            # list for candidate
+            # item for target
+            low = 0           
+            high = len(list)-1
+            while low <= high:    
+                mid = (low+high)/2    
+                    guess = list[mid]
+                if guess == item:     
+                    return mid
+                if guess > item:     
+                    high = mid -1        
+                else:                
+                    low = mid + 1
+            return None           
+        """
     model_error = np.array(model_error)
     min_index = np.random.choice(np.flatnonzero(model_error == model_error.min()))
     print('Two_stage_TrAdaboost_R2 is done')
