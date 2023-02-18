@@ -65,6 +65,9 @@ def TrAdaBoost(trans_S, trans_A, label_S, label_A, test, N = 20):
     row_S = trans_S.shape[0]
     row_T = test.shape[0]
 
+    if N > row_A:
+        print('The maximum of iterations should be smaller than ', row_A)
+        
     test_data = np.concatenate((trans_data, test), axis=0)
 
     # Initialize the weights
@@ -87,26 +90,28 @@ def TrAdaBoost(trans_S, trans_A, label_S, label_A, test, N = 20):
     trans_label = np.asarray(trans_label, order='C')
     test_data = np.asarray(test_data, order='C')
 
+    error_rate_list = []
+    misclassify_list = []
     for i in range(N):
         P = calculate_P(weights)
         result_label[:, i] = train_classify(trans_data, trans_label, test_data, P)
-        error_rate = calculate_error_rate(label_S, result_label[row_A:row_A + row_S, i],weights[row_A:row_A + row_S, :])
+        error_rate,misclassify = calculate_error_rate(label_S, result_label[row_A:row_A + row_S, i],weights[row_A:row_A + row_S, :])
         if error_rate > 0.5:
             error_rate = 1 - error_rate 
             # for a binary classifier 
             # reverse the prediction label 0 to 1; 1 to 0.
             pre_labels = copy.deepcopy(result_label[:, i])
             result_label[:, i] = np.invert(pre_labels.astype(np.int32)) + 2
-
         # Avoiding overfitting
         elif error_rate <= 1e-10:
             N = i
             break 
+        error_rate_list.append(error_rate)
+        misclassify_list.append(misclassify)
         bata_T[0, i] = error_rate / (1 - error_rate)
         print ('Iter {}-th result :'.format(i))
         print ('error rate :', error_rate, '|| bata_T :', error_rate / (1 - error_rate))
         print('-'*60)
-
         # Changing the data weights of same-distribution training data
         for j in range(row_S):
             weights[row_A + j] = weights[row_A + j] * np.power(bata_T[0, i], (-np.abs(result_label[row_A + j, i] - label_S[j])))
@@ -116,8 +121,8 @@ def TrAdaBoost(trans_S, trans_A, label_S, label_A, test, N = 20):
     
     for i in range(row_T):
         left = np.sum(
-            result_label[row_A + row_S + i, int(np.ceil(N / 2)):N] * np.log(1 / bata_T[0, int(np.ceil(N / 2)):N]))
-        right = 0.5 * np.sum(np.log(1 / bata_T[0, int(np.ceil(N / 2)):N]))
+            result_label[row_A + row_S + i, int(np.floor(N / 2)):N] * np.log(1 / bata_T[0, int(np.floor(N / 2)):N]))
+        right = 0.5 * np.sum(np.log(1 / bata_T[0, int(np.floor(N / 2)):N]))
         if left >= right:
             predict[i] = 1
         else:
@@ -126,7 +131,7 @@ def TrAdaBoost(trans_S, trans_A, label_S, label_A, test, N = 20):
     print('='*60)
     print('The prediction labels of test data are :')
     print(predict)
-    return predict
+    return predict,np.round(np.array(error_rate_list),3),np.round(np.array(misclassify_list),3)
 
 def calculate_P(weights):
     total = np.sum(weights)
@@ -139,4 +144,5 @@ def train_classify(trans_data, trans_label, test_data, P):
 
 def calculate_error_rate(label_R, label_H, weight):
     total = np.sum(weight)
-    return np.sum(weight[:, 0] / total * np.abs(label_R - label_H))
+    misclassify = np.sum(np.abs(label_R - label_H))/len(label_H)
+    return np.sum(weight[:, 0] / total * np.abs(label_R - label_H)) , misclassify,
