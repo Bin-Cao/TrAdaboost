@@ -1,3 +1,5 @@
+🤝🤝🤝 Please star ⭐️ it for promoting open source projects 🌍 !
+
 # TrAdaBoost : Boosting for transfer learning
 
 Transfer learning allows leveraging the knowledge of source domains, available a priori, to help training a classi- fier for a target domain, where the available data is scarce.
