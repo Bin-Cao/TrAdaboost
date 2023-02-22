@@ -115,7 +115,7 @@ def Transfer_Stacking(trans_S, Multi_trans_A, response_S, Multi_response_A, test
     predict = np.ones(row_T) * intercept
     for j in range(len(coef)):
         predict += coef[j] * result_response[:,j]
-    print('ExpBoost is done')
+    print('Transfer_Stacking is done')
     print('='*60)
     print('The prediction responses of test data are :')
     print(predict)
