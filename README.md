@@ -1,4 +1,4 @@
-🤝🤝🤝 Please star ⭐️ it for promoting open source projects 🌍 !
+🤝🤝🤝 Please star ⭐️ it for promoting open source projects 🌍 ! Thanks !
 
 # TrAdaBoost : Boosting for transfer learning
 
