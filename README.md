@@ -1,3 +1,5 @@
+🤝🤝🤝 Please star ⭐️ it for promoting open source projects 🌍 ! Thanks !
+
 # TrAdaBoost : Boosting for transfer learning
 
 Transfer learning allows leveraging the knowledge of source domains, available a priori, to help training a classi- fier for a target domain, where the available data is scarce.
@@ -16,6 +18,7 @@ Transfer learning allows leveraging the knowledge of source domains, available a
 
 (2) Regression
 + [Transfer Stacking](https://github.com/Bin-Cao/TrAdaboost/tree/main/Transfer%20Stacking)
++ [TrAdaboost R2](https://github.com/Bin-Cao/TrAdaboost/tree/main/TrAdaBoost_R2)
 + [Two stage TrAdaboost R2](https://github.com/Bin-Cao/TrAdaboost/tree/main/Two_stage_TrAdaboost_R2)
 
 Written using Python, which is suitable for operating systems, e.g., Windows/Linux/MAC OS etc.
