@@ -111,17 +111,16 @@ def ExpBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N):
     for k in range(N):
         weights_S = calculate_ratio_weight(weights_S)
         error_rate_set = []
+        clf_new = tree.DecisionTreeClassifier(criterion="gini", max_depth = 2,max_features="log2", splitter="random",random_state=0)
+        weak_classifier_new = clf_new.fit(np.array(trans_S), np.array(label_S), sample_weight = weights_S[:, 0])
+        weak_classifiers_set.append(weak_classifier_new)
         # save the prediction results of weak classifiers
         _result_label = np.ones([row_S + row_T, len(weak_classifiers_set)])
         for item in range(len(weak_classifiers_set)):
-            clf_new = tree.DecisionTreeClassifier(criterion="gini", max_depth = 2,max_features="log2", splitter="random",random_state=0)
-            weak_classifier_new = clf_new.fit(np.array(trans_S), np.array(label_S), sample_weight = weights_S[:, 0])
-            weak_classifiers_set.append(weak_classifier_new)
             _result_label[:,item] = weak_classifiers_set[item].predict(test_data)
             _error = calculate_error_rate(label_S, _result_label[0:row_S, item], weights_S)
             error_rate_set.append(_error)
         error_rate_set = np.array(error_rate_set)
-       
         # choise the best weak classifier and remove it from the set 
         classifier_index = np.random.choice(np.flatnonzero(error_rate_set == error_rate_set.min()))
         result_label[:,k] = _result_label[:,classifier_index]
