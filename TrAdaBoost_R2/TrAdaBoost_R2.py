@@ -161,6 +161,8 @@ def calculate_P(weights):
 
 
 def base_regressor(trans_data, trans_response, test_data, weights):
+    """
+    Base on sampling
     # weight resampling 
     cdf = np.cumsum(weights)
     cdf_ = cdf / cdf[-1]
@@ -170,7 +172,11 @@ def base_regressor(trans_data, trans_response, test_data, weights):
     bootstrap_idx = np.array(bootstrap_idx, copy=False)
     reg = DecisionTreeRegressor(max_depth=2,splitter='random',max_features="log2",random_state=0)
     reg.fit(trans_data[bootstrap_idx], trans_response[bootstrap_idx])
+    """
+    reg = DecisionTreeRegressor(max_depth=1,splitter='random',max_features="log2",random_state=0)
+    reg.fit(trans_data, trans_response,sample_weight=weights[:,0])
     return reg.predict(test_data)
+
 
 def calculate_error_rate(response_R, response_H, weight):
     total = np.abs(response_R - response_H).max()
