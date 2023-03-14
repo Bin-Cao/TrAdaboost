@@ -7,7 +7,7 @@ from sklearn.tree import DecisionTreeRegressor
 # Public estimators
 # =============================================================================
 
-def AdaBoost_R2_T(trans_S, response_S, test, weights,frozen_N, N = 20):
+def AdaBoost_R2_T(trans_S, response_S, test, weight,frozen_N, N = 20):
     """Boosting for Regression Transfer.
 
     Please feel free to open issues in the Github : https://github.com/Bin-Cao/TrAdaboost
@@ -60,7 +60,7 @@ def AdaBoost_R2_T(trans_S, response_S, test, weights,frozen_N, N = 20):
     row_T = test.shape[0]
 
     test_data = np.concatenate((trans_data, test), axis=0)
-
+    weights = copy.deepcopy(weight)
     # initilize data weights
     _weights = weights / sum(weights)
 
@@ -110,6 +110,7 @@ def calculate_P(weights,frozen_N):
     return np.asarray(weights, order='C')
 
 def train_reg(trans_data, trans_response, test_data, weights):
+    """
     # weight resampling 
     cdf = np.cumsum(weights)
     cdf_ = cdf / cdf[-1]
@@ -119,6 +120,12 @@ def train_reg(trans_data, trans_response, test_data, weights):
     bootstrap_idx = np.array(bootstrap_idx, copy=False)
     reg = DecisionTreeRegressor(max_depth=2,splitter='random',max_features="log2",random_state=0)
     reg.fit(trans_data[bootstrap_idx], trans_response[bootstrap_idx])
+    return reg.predict(test_dat)
+    """
+    # In order to ensure that the results are not random,
+    # the weights are adjusted by the built-in method 
+    reg = DecisionTreeRegressor(max_depth=2,splitter='random',max_features="log2",random_state=0)
+    reg.fit(trans_data, trans_response,sample_weight = weights)
     return reg.predict(test_data)
 
 def calculate_error_rate(response_R, response_H, weight):

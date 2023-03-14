@@ -105,7 +105,6 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
 
     # Initialize the weights
     weight  = np.ones(row_A+row_S)/(row_A+row_S)
-
     bata_T = np.zeros(steps_S)
     
     print ('params initial finished.')
@@ -120,6 +119,7 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
         LOOCV_MSE = LOOCV_test(trans_data, trans_response,  weight,row_A, N)
         model_error.append(LOOCV_MSE)
 
+        """
         # update the data weights
         # weight resampling 
         cdf = np.cumsum(weight)
@@ -132,13 +132,19 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
         reg.fit(trans_data[bootstrap_idx], trans_response[bootstrap_idx])
         pre_res = reg.predict(trans_data)
         E_t = calculate_error_rate(trans_response, pre_res, weight)
+        """
+        # In order to ensure that the results are not random,
+        # the weights are adjusted by the built-in method 
+        reg = DecisionTreeRegressor(max_depth=2,splitter='random',max_features="log2",random_state=0)
+        reg.fit(trans_data, trans_response,sample_weight = weight)
+        pre_res = reg.predict(trans_data)
+        E_t = calculate_error_rate(trans_response, pre_res, weight)
 
         bata_T[i] =  E_t / (1 - E_t)
         print('Iter {}-th result :'.format(i))
         print('{} AdaBoost_R2_T model has been instantiated :'.format(len(model_error)), '|| E_t :', E_t )
         print('-'*60)
 
- 
         # Changing the data weights of same-distribution training data
         total_w_S = row_S/(row_A+row_S) + i/(steps_S-1)*(1 - row_S/(row_A+row_S))
         weight[row_A : row_A+row_S] =  weight[row_A : row_A+row_S] * total_w_S / weight[row_A : row_A+row_S].sum()
@@ -148,6 +154,7 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
         for j in range(row_A):
             weight[j] = weight[j] * np.exp(-bata_T[i] * np.abs(trans_response[j] - pre_res[j]))
         weight[0:row_A] =  weight[0:row_A] * (1-total_w_S) / weight[0:row_A].sum()
+
         """
         # binary_search strategy
         def binary_search(list,item):

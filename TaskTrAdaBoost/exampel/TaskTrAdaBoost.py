@@ -96,7 +96,7 @@ def TaskTrAdaBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N,gamma
 
         for j in range(N):
             weights_A = calculate_ratio_weight(weights_A)
-            clf = tree.DecisionTreeClassifier(criterion="gini", max_depth = 2, max_features="sqrt", splitter="random",random_state=0)
+            clf = tree.DecisionTreeClassifier(criterion="gini", max_depth = 2,max_features="log2", splitter="best",random_state=0)
             weak_classifier = clf.fit(trans_A, label_A, sample_weight = weights_A[:, 0])
             pre = weak_classifier.predict(trans_A)
             error_rate = calculate_error_rate(label_A, pre, weights_A)
@@ -107,7 +107,6 @@ def TaskTrAdaBoost(trans_S, Multi_trans_A, label_S, Multi_label_A, test, N,gamma
                 pass
             for j in range(row_A):
                 weights_A[j] = weights_A[j] * np.exp(- alpha *  pre[j] * label_A[j])
-            
     print('The the set of candidate weak classifiers is initilized and contains {} classifier'.format(len(weak_classifiers_set)))
     print('The phase-I of TaskTrAdaBoost is finished')
     print('='*60)
