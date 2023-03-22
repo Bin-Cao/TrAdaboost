@@ -119,6 +119,14 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
         AdaBoost_pre.append(res_)
         LOOCV_MSE = LOOCV_test(trans_data, trans_response,  weight,row_A, N)
         model_error.append(LOOCV_MSE)
+        """
+        The paper says that:
+        In addition, it is not necessary to progress through all S steps once it has been determined that errors are increasing.
+        """
+
+        if len(model_error) > 2 and model_error[-1] > model_error[-2]:
+            steps_S = i
+            break
 
         """
         # update the data weights
@@ -154,7 +162,7 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
             weight[j] = weight[j] * np.exp(-bata_T[i] * np.abs(trans_response[j] - pre_res[j]))
         weight[0:row_A] =  weight[0:row_A] * (1-total_w_S) / weight[0:row_A].sum()
         """  
-        beta_t = binary_search(total_w_S,weight,trans_response,pre_res,row_A,beta_t_range = (0.01,1,0.01),tal=0.05)
+        beta_t = binary_search(total_w_S,weight,trans_response,pre_res,row_A,beta_t_range = (0.01,1,0.01),tal=0.03)
         if beta_t == None:
             for j in range(row_A):
                 weight[j] = weight[j] * np.exp(-bata_T[i] * np.abs(trans_response[j] - pre_res[j]))
@@ -167,7 +175,8 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
 
         print('Iter {}-th result :'.format(i))
         print('{} AdaBoost_R2_T model has been instantiated :'.format(len(model_error)), '|| E_t :', E_t )
-        print('beta_t calculated by binary search is : ',beta_t)
+        print('The LOOCV MSE on TARGET DOMAIN DATA : ',LOOCV_MSE)
+        print('The beta_t calculated by binary search is : ',beta_t)
         print('-'*60)
       
     model_error = np.array(model_error)
@@ -194,9 +203,8 @@ def LOOCV_test(trans_data, trans_response, weight,row_A, N):
             y_pre = Regmodel.AdaBoost_R2_T(X_train, y_train, X_test, w_train,row_A-1, N )
         else:
             y_pre = Regmodel.AdaBoost_R2_T(X_train, y_train, X_test, w_train,row_A, N )
-        y_pre_loocv.append(y_pre)
-    
-    return mean_squared_error(trans_response,y_pre_loocv)
+        y_pre_loocv.append(y_pre[0])
+    return mean_squared_error(trans_response[row_A:],y_pre_loocv[row_A:])
 
 
 def calculate_error_rate(response_R, response_H, weight):
@@ -204,7 +212,7 @@ def calculate_error_rate(response_R, response_H, weight):
     return np.sum(weight[:] * np.abs(response_R - response_H) / total)
 
 # binary_search strategy
-def binary_search(total_w_S,__weight,trans_response,pre_res,row_A,beta_t_range = (0.01,1,0.01),tal=0.05):
+def binary_search(total_w_S,__weight,trans_response,pre_res,row_A,beta_t_range = (0.01,1,0.01),tal=0.03):
     # beta_t_range is the search range of beta_t, default = (0.01,1,0.01)
     # viz., beta_t is searched in the interval of 0 to 1, with the step of 0.01 by binary_search
     
