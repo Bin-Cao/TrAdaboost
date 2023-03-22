@@ -21,7 +21,7 @@ trans_S = tarin_data.iloc[:,:-1]
 response_S = tarin_data.iloc[:, -1]
 test = test_data.iloc[:,:-1]
 
-steps_S = 3
+steps_S = 7
 N = 10
 
 model.Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A, test, steps_S,N)

@@ -1,4 +1,5 @@
 # coding: UTF-8
+import copy
 import numpy as np
 import AdaBoost_R2_T as Regmodel
 from sklearn.metrics import mean_squared_error
@@ -141,38 +142,34 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
         E_t = calculate_error_rate(trans_response, pre_res, weight)
 
         bata_T[i] =  E_t / (1 - E_t)
-        print('Iter {}-th result :'.format(i))
-        print('{} AdaBoost_R2_T model has been instantiated :'.format(len(model_error)), '|| E_t :', E_t )
-        print('-'*60)
 
         # Changing the data weights of same-distribution training data
         total_w_S = row_S/(row_A+row_S) + i/(steps_S-1)*(1 - row_S/(row_A+row_S))
-        weight[row_A : row_A+row_S] =  weight[row_A : row_A+row_S] * total_w_S / weight[row_A : row_A+row_S].sum()
+        weight[row_A : row_A+row_S] =  (weight[row_A : row_A+row_S] / weight[row_A : row_A+row_S].sum()) * total_w_S
         # Changing the data weights of diff-distribution training data
+        """
         # for saving computation power, we apply the strategy in MultiSourceTrAdaBoost to update the weights
         # see: 10.1109/CVPR.2010.5539857
         for j in range(row_A):
             weight[j] = weight[j] * np.exp(-bata_T[i] * np.abs(trans_response[j] - pre_res[j]))
         weight[0:row_A] =  weight[0:row_A] * (1-total_w_S) / weight[0:row_A].sum()
+        """  
+        beta_t = binary_search(total_w_S,weight,trans_response,pre_res,row_A,beta_t_range = (0.01,1,0.01),tal=0.05)
+        if beta_t == None:
+            for j in range(row_A):
+                weight[j] = weight[j] * np.exp(-bata_T[i] * np.abs(trans_response[j] - pre_res[j]))
+            weight[0:row_A] =  weight[0:row_A] * (1-total_w_S) / weight[0:row_A].sum()
+        else:
+            D_t = np.abs(trans_response[0:row_A] - pre_res[0:row_A]).max()
+            for j in range(row_A):
+                weight[j] = weight[j] * np.power(beta_t, np.abs(trans_response[j] - pre_res[j])/D_t)
+            weight[0:row_A] =  weight[0:row_A] * (1-total_w_S) / weight[0:row_A].sum()
 
-        """
-        # binary_search strategy
-        def binary_search(list,item):
-            # list for candidate
-            # item for target
-            low = 0           
-            high = len(list)-1
-            while low <= high:    
-                mid = (low+high)/2    
-                    guess = list[mid]
-                if guess == item:     
-                    return mid
-                if guess > item:     
-                    high = mid -1        
-                else:                
-                    low = mid + 1
-            return None           
-        """
+        print('Iter {}-th result :'.format(i))
+        print('{} AdaBoost_R2_T model has been instantiated :'.format(len(model_error)), '|| E_t :', E_t )
+        print('beta_t calculated by binary search is : ',beta_t)
+        print('-'*60)
+      
     model_error = np.array(model_error)
     min_index = np.random.choice(np.flatnonzero(model_error == model_error.min()))
     print('Two_stage_TrAdaboost_R2 is done')
@@ -205,3 +202,36 @@ def LOOCV_test(trans_data, trans_response, weight,row_A, N):
 def calculate_error_rate(response_R, response_H, weight):
     total = np.abs(response_R - response_H).max()
     return np.sum(weight[:] * np.abs(response_R - response_H) / total)
+
+# binary_search strategy
+def binary_search(total_w_S,__weight,trans_response,pre_res,row_A,beta_t_range = (0.01,1,0.01),tal=0.05):
+    # beta_t_range is the search range of beta_t, default = (0.01,1,0.01)
+    # viz., beta_t is searched in the interval of 0 to 1, with the step of 0.01 by binary_search
+    
+    D_t = np.abs(trans_response[0:row_A] - pre_res[0:row_A]).max()
+    _list = np.arange(beta_t_range[0],beta_t_range[1],beta_t_range[2])
+    low = 0          
+    high = len(_list)-1
+    while low <= high:   
+        weight = copy.deepcopy(__weight) 
+        mid = int(np.floor((low+high)/2))
+        guess = _list[mid]
+        # test beta_t
+        for j in range(row_A):
+            weight[j] = weight[j] * np.power(guess, np.abs(trans_response[j] - pre_res[j])/D_t)
+        diff = (1-total_w_S) -  weight[0:row_A].sum()
+        if abs(diff) <= tal:     
+            return guess
+        # exceed the convergence crtiterion
+        elif diff > 0:
+            low = mid + 1   
+        else:  
+            high = mid -1               
+      
+    print("UNABLE TO COVERGEE IN BINARY SEARCHING")
+    return None
+
+
+    
+    
+    
