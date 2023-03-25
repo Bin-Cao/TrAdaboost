@@ -7,7 +7,7 @@ from sklearn.tree import DecisionTreeRegressor
 # Public estimators
 # =============================================================================
 
-def AdaBoost_R2_T(trans_S, response_S, test, weight,frozen_N, N = 20):
+def AdaBoost_R2_T_rv(trans_S, response_S, test, weight,frozen_N, N = 20):
     """Boosting for Regression Transfer.
 
     Please feel free to open issues in the Github : https://github.com/Bin-Cao/TrAdaboost
@@ -42,7 +42,7 @@ def AdaBoost_R2_T(trans_S, response_S, test, weight,frozen_N, N = 20):
     test = test_data.iloc[:,:-1]
     N = 10
 
-    AdaBoost_R2_T(trans_S, response_S, test, weights, frozen_N, N)
+    AdaBoost_R2_T_rv(trans_S, response_S, test, weights, frozen_N, N)
 
     References
     ----------
@@ -75,9 +75,10 @@ def AdaBoost_R2_T(trans_S, response_S, test, weight,frozen_N, N = 20):
     trans_response = np.asarray(trans_response, order='C')
     test_data = np.asarray(test_data, order='C')
 
+
     for i in range(N):
         _weights = calculate_P(_weights, frozen_N)
-        result_response[:, i] = train_reg(trans_data, trans_response, test_data, _weights)
+        result_response[:, i]  = train_reg(trans_data, trans_response, test_data, _weights)
         error_rate = calculate_error_rate(response_S, result_response[0: row_S, i],_weights)
         if error_rate > 0.5 or error_rate <= 1e-10: break
 
@@ -102,7 +103,9 @@ def AdaBoost_R2_T(trans_S, response_S, test, weight,frozen_N, N = 20):
     median_estimators = sorted_idx[np.arange(row_T), median_idx]
     for j in range(row_T):
         predict[j] = Cal_res[j,median_estimators[j]]
-    return predict
+
+    train_predictions = median_prediction(result_response[:row_S,:],bata_T,row_S)
+    return predict,_weights,train_predictions
 
 def calculate_P(weights,frozen_N):
     total = np.sum(weights[-frozen_N:])
@@ -131,3 +134,19 @@ def train_reg(trans_data, trans_response, test_data, weights):
 def calculate_error_rate(response_R, response_H, weight):
     total = np.abs(response_R - response_H).max()
     return np.sum(weight[:] * np.abs(response_R - response_H) / total)
+
+def median_prediction(_Cal_res,_bata_T,row_S):
+    _predict = np.zeros(row_S)
+    # Sort the predictions
+    _sorted_idx = np.argsort(_Cal_res, axis=1)
+
+    # Find index of median prediction for each sample
+    _weight_cdf = np.cumsum(_bata_T[_sorted_idx], axis=1)
+    # return True - False
+    _median_or_above = _weight_cdf >= 0.5 * _weight_cdf[:, -1][:, np.newaxis]
+    _median_idx = _median_or_above.argmax(axis=1)
+
+    _median_estimators = _sorted_idx[np.arange(row_S), _median_idx]
+    for j in range(row_S):
+        _predict[j] = _Cal_res[j,_median_estimators[j]]
+    return _predict

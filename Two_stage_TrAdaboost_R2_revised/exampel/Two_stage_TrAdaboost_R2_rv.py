@@ -1,17 +1,18 @@
 # coding: UTF-8
 import copy
 import numpy as np
-import AdaBoost_R2_T as Regmodel
+import warnings
+import AdaBoost_R2_T_rv as Regmodel
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import LeaveOneOut
-from sklearn.tree import DecisionTreeRegressor
+
 
 # =============================================================================
 # Public estimators
 # =============================================================================
 
 
-def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A, test, steps_S, N):
+def Two_stage_TrAdaboost_R2_rv(trans_S, Multi_trans_A, response_S, Multi_response_A, test, steps_S, N):
     """Boosting for Regression Transfer
 
     Please feel free to open issues in the Github : https://github.com/Bin-Cao/TrAdaboost
@@ -70,7 +71,7 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
     test = test_data.iloc[:,:-1]
     N = 20
     steps_S = 10
-    Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A, test, steps_S, N)
+    Two_stage_TrAdaboost_R2_rv(trans_S, Multi_trans_A, response_S, Multi_response_A, test, steps_S, N)
 
     References
     ----------
@@ -111,14 +112,17 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
     print ('params initial finished.')
     print('='*60)
 
-    # generate a pool of AdaBoost_R2_T
+    # generate a pool of AdaBoost_R2_T_rv
     AdaBoost_pre = []
     model_error = []
+    warnings.filterwarnings('ignore')
     for i in range(steps_S):
-        res_ = Regmodel.AdaBoost_R2_T(trans_data, trans_response, test, weight,row_A, N )
+        res_ , new_weight , train_predictions= Regmodel.AdaBoost_R2_T_rv(trans_data, trans_response, test, weight,row_A, N )
         AdaBoost_pre.append(res_)
-        LOOCV_MSE = LOOCV_test(trans_data, trans_response,  weight,row_A, N)
+        LOOCV_MSE = LOOCV_test(trans_data, trans_response, weight,row_A, N)
         model_error.append(LOOCV_MSE)
+        # the finial weights are assigned to the training weights
+        weight = new_weight
         """
         The paper says that:
         In addition, it is not necessary to progress through all S steps once it has been determined that errors are increasing.
@@ -142,11 +146,9 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
         pre_res = reg.predict(trans_data)
         E_t = calculate_error_rate(trans_response, pre_res, weight)
         """
-        # In order to ensure that the results are not random,
-        # the weights are adjusted by the built-in method 
-        reg = DecisionTreeRegressor(max_depth=2,splitter='random',max_features="log2",random_state=0)
-        reg.fit(trans_data, trans_response,sample_weight = weight)
-        pre_res = reg.predict(trans_data)
+        # at the outlier loop, the weights are updated with the prediction of the best_base_estimator
+        pre_res = copy.deepcopy(train_predictions)
+        
         E_t = calculate_error_rate(trans_response, pre_res, weight)
 
         bata_T[i] =  E_t / (1 - E_t)
@@ -172,8 +174,7 @@ def Two_stage_TrAdaboost_R2(trans_S, Multi_trans_A, response_S, Multi_response_A
             for j in range(row_A):
                 weight[j] = weight[j] * np.power(beta_t, np.abs(trans_response[j] - pre_res[j])/D_t)
             weight[0:row_A] =  weight[0:row_A] * (1-total_w_S) / weight[0:row_A].sum()
-
-    
+        
         print('Iter {}-th result :'.format(i))
         print('{} AdaBoost_R2_T model has been instantiated :'.format(len(model_error)), '|| E_t :', E_t )
         print('The LOOCV MSE on TARGET DOMAIN DATA : ',LOOCV_MSE)
@@ -201,9 +202,9 @@ def LOOCV_test(trans_data, trans_response, weight,row_A, N):
         y_train, _ = Y[train_index], Y[test_index]
         w_train, _ = weight[train_index], weight[test_index]
         if cal <= row_A-1:
-            y_pre = Regmodel.AdaBoost_R2_T(X_train, y_train, X_test, w_train,row_A-1, N )
+            y_pre,_ ,_= Regmodel.AdaBoost_R2_T_rv(X_train, y_train, X_test, w_train,row_A-1, N )
         else:
-            y_pre = Regmodel.AdaBoost_R2_T(X_train, y_train, X_test, w_train,row_A, N )
+            y_pre,_ ,_= Regmodel.AdaBoost_R2_T_rv(X_train, y_train, X_test, w_train,row_A, N )
         y_pre_loocv.append(y_pre[0])
     return mean_squared_error(trans_response[row_A:],y_pre_loocv[row_A:])
 
@@ -239,6 +240,9 @@ def binary_search(total_w_S,__weight,trans_response,pre_res,row_A,beta_t_range =
       
     print("UNABLE TO COVERGEE IN BINARY SEARCHING")
     return None
+
+
+
 
 
     

@@ -86,7 +86,7 @@ def AdaBoost_R2_T(trans_S, response_S, test, weight,frozen_N, N = 20):
         # Changing the data weights of unfrozen training data
         D_t = np.abs(result_response[frozen_N:row_S, i] - response_S[frozen_N:row_S]).max()
         for j in range(row_S - frozen_N):
-            weights[frozen_N + j] = weights[frozen_N + j] * np.power(bata_T[i], (1-np.abs(result_response[frozen_N + j, i] - response_S[frozen_N+j])/D_t))
+            _weights[frozen_N + j] = _weights[frozen_N + j] * np.power(bata_T[i], (1-np.abs(result_response[frozen_N + j, i] - response_S[frozen_N+j])/D_t))
     
     
     Cal_res = result_response[row_S:,:]
