@@ -75,8 +75,9 @@ def AdaBoost_R2_T(trans_S, response_S, test, weight,frozen_N, N = 20):
     trans_response = np.asarray(trans_response, order='C')
     test_data = np.asarray(test_data, order='C')
 
+    Total_S_weight = np.sum(weights[-frozen_N:])
     for i in range(N):
-        _weights = calculate_P(_weights, frozen_N)
+        _weights = calculate_P(_weights, frozen_N,Total_S_weight)
         result_response[:, i] = train_reg(trans_data, trans_response, test_data, _weights)
         error_rate = calculate_error_rate(response_S, result_response[0: row_S, i],_weights)
         if error_rate > 0.5 or error_rate <= 1e-10: break
@@ -104,9 +105,9 @@ def AdaBoost_R2_T(trans_S, response_S, test, weight,frozen_N, N = 20):
         predict[j] = Cal_res[j,median_estimators[j]]
     return predict
 
-def calculate_P(weights,frozen_N):
+def calculate_P(weights,frozen_N,Total_S_weight):
     total = np.sum(weights[-frozen_N:])
-    weights[-frozen_N:] / total
+    weights[-frozen_N:] / total * Total_S_weight
     return np.asarray(weights, order='C')
 
 def train_reg(trans_data, trans_response, test_data, weights):
