@@ -24,6 +24,9 @@ Transfer learning allows leveraging the knowledge of source domains, available a
 
 Written using Python, which is suitable for operating systems, e.g., Windows/Linux/MAC OS etc.
 
+## 中文介绍(陆续更新）
++ [TrAdaBoost](https://mp.weixin.qq.com/s/NhxSGOHIr3s6WwffJOrIlQ)
+
 ## Note
 ``` javascript
 author_email='bcao@shu.edu.com'
