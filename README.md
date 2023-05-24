@@ -2,7 +2,7 @@
 
 # TrAdaBoost : Boosting for transfer learning
 
-Transfer learning allows leveraging the knowledge of source domains, available a priori, to help training a classi- fier for a target domain, where the available data is scarce.
+Transfer learning allows leveraging the knowledge of source domains, available a priori, to help training a classifier for a target domain, where the available data is scarce.
 
 
 [![Security Status](https://www.murphysec.com/platform3/v3/badge/1626904646967132160.svg)](https://www.murphysec.com/accept?code=645babf2266d3ebb42b1005074b53306&type=1&from=2)
