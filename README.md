@@ -63,7 +63,6 @@ Boosting for regression transfer.
 In Proceedings of the 27th International Conference 
 on International Conference on Machine Learning (pp. 863-870).
 
-.. [5] GitHub: https://github.com/chenchiwei/tradaboost/blob/master/TrAdaboost.py
 
 ## About
 Maintained by Bin Cao. Please feel free to open issues in the Github or contact Bin Cao
