@@ -9,7 +9,7 @@ Transfer learning allows leveraging the knowledge of source domains, available a
 
 [![Security Status](https://www.murphysec.com/platform3/v3/badge/1626904646967132160.svg)](https://www.murphysec.com/accept?code=645babf2266d3ebb42b1005074b53306&type=1&from=2)
 
-## Cite : 
+If you are using this code, please cite:
 + Cao Bin, Zhang Tong-yi, Xiong Jie, Zhang Qian, Sun Sheng. Package of Boosting-based transfer learning [2023SR0525555], 2023, Software copyright, GitHub : github.com/Bin-Cao/TrAdaboost.
 
 ## Models
@@ -63,9 +63,41 @@ Boosting for regression transfer.
 In Proceedings of the 27th International Conference 
 on International Conference on Machine Learning (pp. 863-870).
 
-.. [5] GitHub: https://github.com/chenchiwei/tradaboost/blob/master/TrAdaboost.py
 
 ## About
 Maintained by Bin Cao. Please feel free to open issues in the Github or contact Bin Cao
 (bcao@shu.edu.cn) in case of any problems/comments/suggestions in using the code. 
 
+---
+## Transfer learning links
+1 : Instance-based transfer learning
+  - Instance selection (marginal distributions are same while conditional distributions are different) :
+    
+    [TrAdaboost](https://github.com/Bin-Cao/TrAdaboost/tree/main/TrAdaBoost)
+
+  - Instance re-weighting (conditional distributions are same while marginal distributions are different) :
+    
+    [KMM](https://github.com/Bin-Cao/KMMTransferRegressor)
+ 
+2 : Feature-based transfer learning
+  - Explicit distance:
+      - case 1 : marginal distributions are same while conditional distributions are different:
+        
+         [TCA(MMD based)](https://github.com/MaterialsInformaticsDemo/TCA)  ; [DAN(MK-MMD based)](https://github.com/MaterialsInformaticsDemo/DAN)
+      - case 1 : conditional distributions are same while marginal distributions are different
+      
+        JDA
+      
+      - case 3 : Both marginal distributions and conditional distributions are different
+      
+        DDA
+      
+ - Implicit distance :
+ 
+   DANN
+
+ 3 : Parameter-based transfer learning
+ 
+ - Pretraining + fine tune
+
+---
