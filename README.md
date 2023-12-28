@@ -2,6 +2,9 @@
 
 if you have any questions or need help, you are welcome to contact me
 
+If you are using this code, please cite:
++ Cao Bin, Zhang Tong-yi, Xiong Jie, Zhang Qian, Sun Sheng. Package of Boosting-based transfer learning [2023SR0525555], 2023, Software copyright, GitHub : github.com/Bin-Cao/TrAdaboost.
+  
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=Bin-Cao/TrAdaboost&type=Date)](https://star-history.com/#Bin-Cao/TrAdaboost&Date)
@@ -14,8 +17,7 @@ Transfer learning allows leveraging the knowledge of source domains, available a
 
 [![Security Status](https://www.murphysec.com/platform3/v3/badge/1626904646967132160.svg)](https://www.murphysec.com/accept?code=645babf2266d3ebb42b1005074b53306&type=1&from=2)
 
-If you are using this code, please cite:
-+ Cao Bin, Zhang Tong-yi, Xiong Jie, Zhang Qian, Sun Sheng. Package of Boosting-based transfer learning [2023SR0525555], 2023, Software copyright, GitHub : github.com/Bin-Cao/TrAdaboost.
+
 
 ## Models
 (1) classification
