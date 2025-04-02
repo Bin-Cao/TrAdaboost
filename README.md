@@ -36,6 +36,14 @@ Transfer learning allows leveraging the knowledge of source domains, available a
 
 Written using Python, which is suitable for operating systems, e.g., Windows/Linux/MAC OS etc.
 
+## Tutorial
+
+
++ [TrAdaBoost tutorial](./tutorial/tutorial_5_TrAdaBoost.html) by [Mr. Chen](https://github.com/georgedashen) for **AMAT 6000A: Advanced Materials Informatics (Spring 2025, HKUST-GZ).**  
+
+
+
+
 ## 中文介绍(陆续更新）
 + [TrAdaBoost](https://mp.weixin.qq.com/s/NhxSGOHIr3s6WwffJOrIlQ)
 
