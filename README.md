@@ -39,7 +39,7 @@ Written using Python, which is suitable for operating systems, e.g., Windows/Lin
 ## Tutorial
 
 
-+ [TrAdaBoost tutorial](./tutorial/tutorial_5_TrAdaBoost.pdf) by [Mr. Chen](https://github.com/georgedashen) for **AMAT 6000A: Advanced Materials Informatics (Spring 2025, HKUST-GZ).**  
++ [TrAdaBoost tutorial 1](./tutorial/tutorial_5_TrAdaBoost.pdf) and [TrAdaBoost tutorial 2](./tutorial/tutorial_6_TrAdaBoost_R2.pdf) by [Mr. Chen](https://github.com/georgedashen) for **AMAT 6000A: Advanced Materials Informatics (Spring 2025, HKUST-GZ).**  Thanks for his important contributions.
 
 
 
