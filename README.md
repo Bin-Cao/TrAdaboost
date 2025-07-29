@@ -1,6 +1,7 @@
 🤝🤝🤝 Please star ⭐️ it for promoting open source projects 🌍 ! Thanks !
 
-if you have any questions or need help, you are welcome to contact me
+This is a teaching project designed to implement transfer learning, developed during my time at [Zhejiang Lab](https://www.zhejianglab.org/lab/home) (March 1 – August 31, 2023). If you have any questions or need assistance, feel free to contact me.
+
 
 If you are using this code, please cite:
 + Cao Bin, Zhang Tong-yi, Xiong Jie, Zhang Qian, Sun Sheng. Package of Boosting-based transfer learning [2023SR0525555], 2023, Software copyright, GitHub : github.com/Bin-Cao/TrAdaboost.
