@@ -45,12 +45,29 @@ If you have any questions or need assistance, feel free to reach out!
   *By [Mr. Chen](https://github.com/georgedashen), for **AMAT 6000A: Advanced Materials Informatics (Spring 2025, HKUST-GZ)**.*
   Thanks to Mr. Chen for his valuable contributions!
 
+
+
 ---
 ## 📈 Star History
 
 <a href="https://star-history.com/#Bin-Cao/TrAdaboost&Date">
   <img src="https://api.star-history.com/svg?repos=Bin-Cao/TrAdaboost&type=Date" width="400">
 </a>
+
+
+<h2 align="center">📈 Star History</h2>
+
+<p align="center">
+  <a href="https://star-history.com/#Bin-Cao/TrAdaboost&Date">
+    <img src="https://api.star-history.com/svg?repos=Bin-Cao/TrAdaboost&type=Date"
+         width="500"
+         style="border-radius:12px; padding:8px; border:3px solid transparent;
+                background:linear-gradient(white,white) padding-box,
+                           linear-gradient(45deg,#00b4d8,#7209b7) border-box;
+                transition:transform 0.3s ease, box-shadow 0.3s ease;">
+  </a>
+</p>
+
 
 ---
 
