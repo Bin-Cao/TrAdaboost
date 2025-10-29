@@ -46,10 +46,11 @@ If you have any questions or need assistance, feel free to reach out!
   Thanks to Mr. Chen for his valuable contributions!
 
 ---
-
 ## 📈 Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Bin-Cao/TrAdaboost\&type=Date)](https://star-history.com/#Bin-Cao/TrAdaboost&Date)
+<a href="https://star-history.com/#Bin-Cao/TrAdaboost&Date">
+  <img src="https://api.star-history.com/svg?repos=Bin-Cao/TrAdaboost&type=Date" width="400">
+</a>
 
 ---
 
