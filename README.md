@@ -59,11 +59,10 @@ If you have any questions or need assistance, feel free to reach out!
 
 <p align="center">
   <a href="https://star-history.com/#Bin-Cao/TrAdaboost&Date">
-    <img src="https://api.star-history.com/svg?repos=Bin-Cao/TrAdaboost&type=Date"
-         width="500"
-         style="border-radius:15px; box-shadow:0 0 20px rgba(0,0,0,0.15); background:rgba(255,255,255,0.8); padding:10px; backdrop-filter:blur(10px);">
+    <img src="https://api.star-history.com/svg?repos=Bin-Cao/TrAdaboost&type=Date" width="450" alt="Star History Chart"/>
   </a>
 </p>
+
 
 
 
