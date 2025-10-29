@@ -61,12 +61,10 @@ If you have any questions or need assistance, feel free to reach out!
   <a href="https://star-history.com/#Bin-Cao/TrAdaboost&Date">
     <img src="https://api.star-history.com/svg?repos=Bin-Cao/TrAdaboost&type=Date"
          width="500"
-         style="border-radius:12px; padding:8px; border:3px solid transparent;
-                background:linear-gradient(white,white) padding-box,
-                           linear-gradient(45deg,#00b4d8,#7209b7) border-box;
-                transition:transform 0.3s ease, box-shadow 0.3s ease;">
+         style="border-radius:15px; box-shadow:0 0 20px rgba(0,0,0,0.15); background:rgba(255,255,255,0.8); padding:10px; backdrop-filter:blur(10px);">
   </a>
 </p>
+
 
 
 ---
