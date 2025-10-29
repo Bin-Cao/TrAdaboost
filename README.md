@@ -48,21 +48,24 @@ If you have any questions or need assistance, feel free to reach out!
 
 
 ---
+
+
 ## 📈 Star History
 
-<a href="https://star-history.com/#Bin-Cao/TrAdaboost&Date">
-  <img src="https://api.star-history.com/svg?repos=Bin-Cao/TrAdaboost&type=Date" width="400">
-</a>
-
+<p align="center">
+  <a href="https://github.com/Bin-Cao/TrAdaboost/stargazers">
+    <img src="https://img.shields.io/github/stars/Bin-Cao/TrAdaboost?color=gold&style=for-the-badge" />
+  </a>
+  <a href="https://github.com/Bin-Cao/TrAdaboost/network/members">
+    <img src="https://img.shields.io/github/forks/Bin-Cao/TrAdaboost?color=teal&style=for-the-badge" />
+  </a>
+</p>
 
 <p align="center">
   <a href="https://star-history.com/#Bin-Cao/TrAdaboost&Date">
-    <img src="https://api.star-history.com/svg?repos=Bin-Cao/TrAdaboost&type=Date" width="400" alt="Star History Chart"/>
+    <img src="https://api.star-history.com/svg?repos=Bin-Cao/TrAdaboost&type=Date" width="420" alt="Star History Chart"/>
   </a>
-  <br/>
-  <img src="https://img.shields.io/badge/⭐_Tracking_Project_Trend-blueviolet?style=for-the-badge" />
 </p>
-
 
 
 ---
